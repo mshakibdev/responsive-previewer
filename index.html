@@ -17,9 +17,16 @@
             </form>
 
             <div id="bpEditor">
-                <h3>Breakpoints</h3>
-                <ul id="bpList"></ul>
-                <button type="button" id="addBp">+ Add Breakpoint</button>
+                <div id="bpEditor">
+                    <h2>Breakpoints</h2>
+                    <label for="sortOrder">Sort Order:</label>
+                    <select id="sortOrder">
+                        <option value="asc">Small to Large</option>
+                        <option value="desc">Large to Small</option>
+                    </select>
+                    <ul id="bpList"></ul>
+                    <button type="button" id="addBp">Add Breakpoint</button>
+                </div>
             </div>
 
             <div class="preview-grid"></div>

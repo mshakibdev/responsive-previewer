@@ -19,7 +19,8 @@ form {
 }
 
 input,
-button {
+button,
+select {
   padding: 8px 12px;
   font-size: 1rem;
 }
@@ -74,4 +75,35 @@ button {
   border: none;
   padding: 0 6px;
   cursor: pointer;
+}
+
+#bpEditor {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+#bpEditor label {
+  margin-right: 8px;
+}
+
+#sortOrder {
+  margin-bottom: 12px;
+}
+
+/* placeholder variant of preview-box */
+.preview-box.placeholder {
+  background-color: #ffe5e5; /* light pink */
+  border: 1px dashed #f5c2c2;
+  min-height: 300px; /* adjust to taste */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-box.placeholder h3 {
+  margin: 0;
+  color: #a00;
+  font-size: 1.1rem;
 }
