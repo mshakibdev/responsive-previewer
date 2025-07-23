@@ -1,0 +1,6 @@
+PREVIEW WEB PAGE NEW REQUIREMENTS
+1.Sort breakpoint by small and large
+2.Reset custom added break points
+3.Placeholder
+4.add url in queryparam
+4.show full view on modal (not now in v2)

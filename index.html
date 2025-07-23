@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>Responsive Previewer</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Website Previewer</h1>
+
+            <form id="previewForm">
+                <input type="url" id="urlInput" placeholder="https://example.com" required />
+                <button type="submit">Preview</button>
+            </form>
+
+            <div id="bpEditor">
+                <h3>Breakpoints</h3>
+                <ul id="bpList"></ul>
+                <button type="button" id="addBp">+ Add Breakpoint</button>
+            </div>
+
+            <div class="preview-grid"></div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+
+</html>
