@@ -32,11 +32,11 @@ function renderBreakpointEditor() {
 function sortBreakpointEditor() {
   const order = sortSelect.value;
   Array.from(bpList.children)
-    // .sort((a, b) => {
-    //   const aw = +a.querySelector(".bp-width").value;
-    //   const bw = +b.querySelector(".bp-width").value;
-    //   return order === "asc" ? aw - bw : bw - aw;
-    // })
+    .sort((a, b) => {
+      const aw = +a.querySelector(".bp-width").value;
+      const bw = +b.querySelector(".bp-width").value;
+      return order === "asc" ? aw - bw : bw - aw;
+    })
     .forEach((li) => bpList.appendChild(li));
 }
 
