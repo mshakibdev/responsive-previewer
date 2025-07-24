@@ -7,22 +7,30 @@ const defaultBreakpoints = [
 
 const bpList = document.getElementById("bpList");
 const addBpButton = document.getElementById("addBp");
+const resetButton = document.getElementById("resetBp");
 const previewForm = document.getElementById("previewForm");
 const urlInput = document.getElementById("urlInput");
 const sortSelect = document.getElementById("sortOrder");
 const previewGrid = document.querySelector(".preview-grid");
 
-// ➋ Render the breakpoint editor on load
+function createBpItem(bp) {
+  const li = document.createElement("li");
+  li.className = "bp-item";
+  li.innerHTML = `
+    <input type="text"  class="bp-name"  value="${bp.name}"  placeholder="Label">
+    <input type="number" class="bp-width" value="${bp.width}" placeholder="Width">
+    <button class="remove-bp" title="Remove">&times;</button>
+  `;
+  return li;
+}
+
+// ➋ In renderBreakpointEditor(), append each default item *and* tag it with .default-bp:
+
 function renderBreakpointEditor() {
   bpList.innerHTML = "";
   defaultBreakpoints.forEach((bp) => {
-    const li = document.createElement("li");
-    li.className = "bp-item";
-    li.innerHTML = `
-      <input type="text"  class="bp-name"  value="${bp.name}"  placeholder="Label">
-      <input type="number" class="bp-width" value="${bp.width}" placeholder="Width">
-      <button class="remove-bp">&times;</button>
-    `;
+    const li = createBpItem(bp);
+    li.classList.add("default-bp"); // mark it
     bpList.appendChild(li);
   });
   sortBreakpointEditor();
@@ -123,6 +131,24 @@ previewForm.addEventListener("submit", (e) => {
   renderPreviewGrid(url, bps);
 });
 
+resetButton.addEventListener("click", () => {
+  // Remove only the custom ones:
+  document
+    .querySelectorAll("#bpList li:not(.default-bp)")
+    .forEach((li) => li.remove());
+
+  // Re‑sort the remaining defaults:
+  sortBreakpointEditor();
+
+  // Refresh the preview area:
+  const url = urlInput.value.trim();
+  if (url) {
+    // trigger the same logic as form submit
+    previewForm.dispatchEvent(new Event("submit", { cancelable: true }));
+  } else {
+    renderPlaceholderGrid();
+  }
+});
 // ➑ On load or when the URL field is cleared, show placeholders
 window.addEventListener("DOMContentLoaded", () => {
   renderBreakpointEditor();

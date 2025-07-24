@@ -107,3 +107,10 @@ button {
   color: #a00;
   font-size: 1.1rem;
 }
+
+#resetBp {
+  margin-left: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
