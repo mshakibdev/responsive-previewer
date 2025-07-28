@@ -122,11 +122,16 @@ previewForm.addEventListener("submit", (e) => {
     .map((li) => ({
       name: li.querySelector(".bp-name").value || "BP",
       width: +li.querySelector(".bp-width").value,
+      height: li.querySelector(".bp-height")?.value || 600, // default height
     }))
-    .filter((bp) => bp.width > 0)
-    .sort((a, b) => {
-      return sortSelect.value === "asc" ? a.width - b.width : b.width - a.width;
-    });
+    .filter((bp) => bp.width > 0);
+
+  // 👇 Save data to query string
+  const params = new URLSearchParams();
+  params.set("url", url);
+  params.set("bps", JSON.stringify(bps));
+
+  history.replaceState(null, "", "?" + params.toString());
 
   renderPreviewGrid(url, bps);
 });
@@ -152,7 +157,29 @@ resetButton.addEventListener("click", () => {
 // ➑ On load or when the URL field is cleared, show placeholders
 window.addEventListener("DOMContentLoaded", () => {
   renderBreakpointEditor();
-  renderPlaceholderGrid();
+
+  const params = new URLSearchParams(window.location.search);
+  const url = params.get("url");
+  const bps = params.get("bps");
+
+  if (url && bps) {
+    urlInput.value = url;
+    try {
+      const parsedBps = JSON.parse(bps);
+      bpList.innerHTML = ""; // clear all first
+      parsedBps.forEach((bp) => {
+        const li = createBpItem(bp);
+        bpList.appendChild(li);
+      });
+      sortBreakpointEditor();
+      renderPreviewGrid(url, parsedBps);
+    } catch (err) {
+      console.error("Failed to parse breakpoints from URL:", err);
+      renderPlaceholderGrid();
+    }
+  } else {
+    renderPlaceholderGrid();
+  }
 });
 
 urlInput.addEventListener("blur", () => {
